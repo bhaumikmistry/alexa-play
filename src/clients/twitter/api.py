@@ -34,7 +34,7 @@ class Twitter():
             tweet = json.dumps(item, indent=2)
         return r
 
-    def search_paginated(self, text, tweet_per_call=10, tweet_count=20):
+    def search_paginated(self, text, tweet_per_call=100, tweet_count=200):
         pager = TwitterPager(self._api, 
             'search/tweets', 
             {
