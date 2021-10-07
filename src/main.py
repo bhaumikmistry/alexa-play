@@ -42,11 +42,14 @@ def process():
             psr_og = psr.parse(og)
             print(psr_og)
             print(f"song_name={psr.get_song_name(psr_og)}")
+            print(f"artist_name={psr.get_singer(psr_og)}")
         else:
             inv.append(og)
     # print(*rt, sep="\n->")
     print(f"og={len(sdb)} hapi={len(hapi)} rt={len(rt)} inv={len(inv)} t={len(hapi)+len(rt)+len(inv)}")
-
+    # print(*inv, sep="\n->")
+    
+    
 
 if __name__ == '__main__':
     import sys

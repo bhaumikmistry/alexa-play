@@ -5,8 +5,8 @@ from tinydb import TinyDB, Query
 # with open("data_file.json", "w") as f:
 #     json.dump(data, f)
 
-tweet_db = TinyDB('tweets.json')
-short_db = TinyDB('short_tweets.json')
+tweet_db = TinyDB('tweets.json', sort_keys=True, indent=4, separators=(',', ': '))
+short_db = TinyDB('short_tweets.json', sort_keys=True, indent=4, separators=(',', ': '))
 
 
 class TweetUpdater:

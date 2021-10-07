@@ -30,14 +30,29 @@ class Parser:
     def is_retweet(self, text):
         return text.startswith("RT")
     
-    def get_song_name(self, text):
-        sep = ""
+    def get_separater(self, text):
         if text.lower().find(" by ") != -1:
-            sep = " by "
+            return " by "
         elif text.lower().find(" from ") != -1:
-            sep = " from "
-        song = re.search('%s(.*)%s' % ("play", sep), text.lower()).group(1)
-        return song
+            return " from "
+        return ""
+    
+    def get_song_name(self, text):
+        sep = self.get_separater(text)
+        song = re.search('%s(.*)%s' % ("play", sep), text.lower())
+        if song:
+            return song.group(1)
+        return None
+    
+    def get_singer(self, text):
+        sep = self.get_separater(text)
+        if sep is "":
+            return ""
+        last_part = text.lower().split(sep,1)[1]
+        if len(last_part.split()) > 3:
+            return " ".join(last_part.split()[0:3])
+        else:
+            return last_part
     
     def parse(self, text):
         text = self.remove_URL(text)
