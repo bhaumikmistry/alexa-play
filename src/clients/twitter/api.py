@@ -13,7 +13,7 @@ MIXED="mixed"
 RECENT="recent"
 POPULAR="popular"
 
-class Twitter():
+class Twitter:
     def __init__(self):
         self._api = self._get_client()
 

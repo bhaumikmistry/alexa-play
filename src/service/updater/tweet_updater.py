@@ -1,12 +1,14 @@
 #/usr/bin/python3
 from clients.twitter.api import Twitter
 from tinydb import TinyDB, Query
+from tinydb.storages import JSONStorage
+from tinydb.middlewares import CachingMiddleware
 
 # with open("data_file.json", "w") as f:
 #     json.dump(data, f)
 
-tweet_db = TinyDB('tweets.json', sort_keys=True, indent=4, separators=(',', ': '))
-short_db = TinyDB('short_tweets.json', sort_keys=True, indent=4, separators=(',', ': '))
+tweet_db = TinyDB('tweets.json', sort_keys=True, indent=4, separators=(',', ': '), storage=CachingMiddleware(JSONStorage))
+short_db = TinyDB('short_tweets.json', sort_keys=True, indent=4, separators=(',', ': '), storage=CachingMiddleware(JSONStorage))
 
 
 class TweetUpdater:
@@ -22,6 +24,7 @@ class TweetUpdater:
             if self.get_tweet(tweet, db):
                 continue
             db.insert(data)
+        db.close()
     
     def get_tweets(self, db: TinyDB):
         return db.all()
